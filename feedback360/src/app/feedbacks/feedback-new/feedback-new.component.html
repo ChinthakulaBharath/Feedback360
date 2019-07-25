@@ -1,0 +1,36 @@
+<mat-card>
+  <form (submit)="onFeedbackRequest()" #feedbackForm="ngForm">
+      <mat-form-field class="example-chip-list">
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let people of peoples" [selectable]="selectable"
+                   [removable]="removable" (removed)="remove(people)">
+            {{people.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Enter name of recepients::"
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="add($event)"
+                 [formControl]="myControl"
+                 matInput  [matAutocomplete]="auto">
+                
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+      </mat-form-field>
+      <button type="submit" mat-raised-button color="accent">Save feedback Request</button>
+
+    </form>
+    <button (click)="clickSendMail()">click on button to send mail!!!</button>
+</mat-card>
+
+
+
+
+
+
+
